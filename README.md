@@ -70,3 +70,8 @@ Based on the Project Criteria, the following features are left to be implemented
 4. Run `php artisan key:generate`
 5. Run `php artisan migrate:fresh --seed`
 6. Run `php artisan serve`
+
+### 🔑 Default Admin Account
+To test the admin features, use the following credentials:
+- **Email:** `admin@charityhub.local`
+- **Password:** `password123`
