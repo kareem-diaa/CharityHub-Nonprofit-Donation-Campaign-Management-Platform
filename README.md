@@ -33,7 +33,7 @@ The core foundation and frontend UI have been successfully implemented:
 
 ## 🛠️ Technologies Used So Far
 - **Backend:** Laravel 11 (Manual coding & architecture)
-- **Database:** SQLite (for easy portability during development)
+- **Database:** MySQL (using XAMPP)
 - **Frontend:** Blade Templating, Bootstrap 5 (Structure), Custom CSS (Aesthetics)
 - **Fonts:** Google Fonts (Outfit)
 
@@ -66,7 +66,7 @@ Based on the Project Criteria, the following features are left to be implemented
 ## 💻 How to Run Locally
 1. Clone the repository.
 2. Run `composer install`
-3. Copy `.env.example` to `.env` (ensure `DB_CONNECTION=sqlite`).
+3. Copy `.env.example` to `.env` (ensure `DB_CONNECTION=mysql` and your database exists in phpMyAdmin).
 4. Run `php artisan key:generate`
 5. Run `php artisan migrate:fresh --seed`
 6. Run `php artisan serve`
