@@ -1,7 +1,6 @@
 # CharityHub - Nonprofit Donation & Campaign Management Platform
+<img width="595" height="751" alt="image" src="https://github.com/user-attachments/assets/25da90a4-6f59-44aa-af13-b6dbaecbb208" />
 
-![Project Criteria](criteria.png)
-*(Note: Upload the image named criteria.png to your repository for this to appear)*
 
 ## 🚀 Overview
 CharityHub is a transparent online platform designed to manage fundraising campaigns, accept donations, coordinate volunteers, and publish impact reports to build donor trust.
