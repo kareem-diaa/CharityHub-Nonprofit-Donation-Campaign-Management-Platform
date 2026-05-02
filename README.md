@@ -1,59 +1,72 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# CharityHub - Nonprofit Donation & Campaign Management Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Project Criteria](put_your_image_url_or_path_here.png)
+*(Note: Please upload the project requirements image to the repo and link it above)*
 
-## About Laravel
+## 🚀 Overview
+CharityHub is a transparent online platform designed to manage fundraising campaigns, accept donations, coordinate volunteers, and publish impact reports to build donor trust.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✅ What Has Been Completed (My Work)
+The core foundation and frontend UI have been successfully implemented:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Frontend UI (Premium Theme):**
+   - Designed a highly professional **Frosted Lilac Glassmorphism** theme using Custom CSS.
+   - Fully responsive layouts using Bootstrap 5 for grids.
+   - Dynamic, animated backgrounds and soft hover effects.
+2. **Volunteer System:**
+   - Volunteer registration and task tracking.
+   - Implemented a custom **Conflict Detection Algorithm** to prevent volunteers from registering for tasks overlapping in time.
+3. **Campaign Management (CRUD):**
+   - Full backend controllers to Create, Read, Update, and Delete campaigns.
+   - Dynamic progress bars calculating raised amounts vs. goals.
+   - SEO-friendly URL generation (Slugs).
+4. **Donations Engine Core:**
+   - Built the database structures and relations for donations.
+   - Implemented **Idempotency Keys** to securely prevent duplicate donation charges.
+5. **Impact Reports:**
+   - Created a dynamic impact report dashboard aggregating total donations, active campaigns, and volunteer hours.
+6. **Authentication & Roles (RBAC):**
+   - Implemented Spatie Laravel-permission.
+   - Secured routes using `@can` and Middleware for (Admin, Manager, Donor, Volunteer).
 
-## Learning Laravel
+## 🛠️ Technologies Used So Far
+- **Backend:** Laravel 11 (Manual coding & architecture)
+- **Database:** SQLite (for easy portability during development)
+- **Frontend:** Blade Templating, Bootstrap 5 (Structure), Custom CSS (Aesthetics)
+- **Fonts:** Google Fonts (Outfit)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ⏳ Pending Tasks (For Next Team Members)
+Based on the Project Criteria, the following features are left to be implemented by the rest of the team:
 
-## Laravel Sponsors
+### 1. Payment Integration (Backend Team)
+- Integrate **Stripe Billing** or **PayMob** for live payment processing.
+- Handle both one-time and recurring (subscription) donations.
+- Implement an abstract Payment Interface for easy gateway swapping.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. PDF & Email Jobs (Backend Team)
+- Install and configure **DomPDF**.
+- Generate automated donor certificates containing a **QR Code**.
+- Setup Laravel Queued Jobs and Events (`DonationReceived` event) to send the certificate via email asynchronously.
 
-### Premium Partners
+### 3. Real-Time UI Updates (Frontend Team)
+- Integrate **Livewire** to make the campaign progress bars and donation feeds update in real-time without refreshing the page.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 4. Maps Integration (Frontend Team)
+- Integrate **Google Maps API** into the Impact Reports page to show beneficiary locations.
 
-## Contributing
+### 5. Final Security Features
+- Implement the manual "Forget Password" flow with token generation (Chapter 6 requirement).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 💻 How to Run Locally
+1. Clone the repository.
+2. Run `composer install`
+3. Copy `.env.example` to `.env` (ensure `DB_CONNECTION=sqlite`).
+4. Run `php artisan key:generate`
+5. Run `php artisan migrate:fresh --seed`
+6. Run `php artisan serve`
