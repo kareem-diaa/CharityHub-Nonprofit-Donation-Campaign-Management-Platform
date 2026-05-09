@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\StripeWebhookController;
 use App\Http\Controllers\Web\UsersController;
 
 Route::get('/', function () {
@@ -31,6 +32,7 @@ Route::post('/campaigns/store', [CampaignsController::class, 'store'])->name('ca
 Route::get('/campaigns/edit/{campaign}', [CampaignsController::class, 'edit'])->name('campaigns_edit');
 Route::post('/campaigns/update/{campaign}', [CampaignsController::class, 'update'])->name('campaigns_update');
 Route::post('/campaigns/delete/{campaign}', [CampaignsController::class, 'destroy'])->name('campaigns_delete');
+Route::get('/campaigns/{campaign}', [CampaignsController::class, 'show'])->name('campaigns_show');
 
 // Reports
 use App\Http\Controllers\Web\ReportsController;
@@ -62,3 +64,8 @@ Route::middleware(['auth'])->group(function () {
 // Volunteer List (Public)
 Route::get('/volunteer', [\App\Http\Controllers\Web\VolunteerController::class, 'index'])->name('volunteers_list');
 
+// Certificate Verification (Public)
+Route::get('/donations/certificate/{donation}/verify', [\App\Http\Controllers\Web\CertificateController::class, 'verify'])->name('donations_certificate_verify');
+
+// ── Stripe Webhook (CSRF-exempt — excluded in bootstrap/app.php) ──────────────
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle'])->name('stripe.webhook');

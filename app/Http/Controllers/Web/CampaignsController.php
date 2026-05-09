@@ -83,4 +83,9 @@ class CampaignsController extends Controller
         $campaign->delete();
         return redirect()->route('campaigns_list')->with('success', 'Campaign deleted successfully.');
     }
+
+    public function show(Campaign $campaign)
+    {
+        return view('campaigns.show', compact('campaign'));
+    }
 }

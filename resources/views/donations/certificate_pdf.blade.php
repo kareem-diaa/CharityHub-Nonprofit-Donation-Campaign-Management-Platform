@@ -11,7 +11,7 @@
         .donor-name { font-size: 30px; font-weight: bold; border-bottom: 2px solid #333; display: inline-block; padding: 0 20px; margin: 20px 0; }
         .details { font-size: 18px; margin-top: 30px; line-height: 1.6; }
         .footer { margin-top: 50px; font-size: 14px; color: #777; }
-        .stamp { position: absolute; bottom: 20px; right: 40px; opacity: 0.5; transform: rotate(-15deg); color: #6c5ce7; font-weight: bold; border: 4px solid #6c5ce7; padding: 10px; }
+        .stamp { position: absolute; bottom: 20px; right: 40px; color: #6c5ce7; font-size: 12px; font-weight: bold; text-align: center; }
     </style>
 </head>
 <body>
@@ -32,7 +32,10 @@
             Thank you for being part of CharityHub.
         </div>
 
-        <div class="stamp">VERIFIED BY CHARITYHUB</div>
+        <div class="stamp">
+            <img src="data:image/svg+xml;base64,{!! base64_encode(SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')->size(100)->generate(route('donations_certificate_verify', $donation_id))) !!}" alt="QR Code">
+            <br><br>SCAN TO VERIFY
+        </div>
 
         <div class="footer">
             Transaction ID: {{ $transaction_id }}<br>

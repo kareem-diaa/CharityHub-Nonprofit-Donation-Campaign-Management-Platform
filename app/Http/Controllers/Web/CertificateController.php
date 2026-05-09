@@ -17,17 +17,24 @@ class CertificateController extends Controller
         } elseif (auth()->id() !== $donation->user_id) {
             abort(403, 'Unauthorized action.');
         }
-
+        
         $data = [
-            'donor_name' => $donation->user->name ?? 'Generous Donor',
-            'amount' => $donation->amount,
-            'campaign' => $donation->campaign->title,
-            'date' => $donation->created_at->format('M d, Y'),
-            'transaction_id' => $donation->transaction_id
+            'donor_name'     => $donation->user->name ?? 'Generous Donor',
+            'amount'         => $donation->amount,
+            'campaign'       => $donation->campaign->title,
+            'date'           => $donation->created_at->format('M d, Y'),
+            'transaction_id' => $donation->transaction_id,
+            'donation_id'    => $donation->id,
         ];
 
         $pdf = Pdf::loadView('donations.certificate_pdf', $data);
 
         return $pdf->download('CharityHub-Certificate-' . $donation->id . '.pdf');
+    }
+
+    public function verify(Donation $donation)
+    {
+        $donation->load(['user', 'campaign']);
+        return view('donations.certificate_verify', compact('donation'));
     }
 }

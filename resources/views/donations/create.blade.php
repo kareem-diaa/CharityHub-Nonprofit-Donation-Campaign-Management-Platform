@@ -8,7 +8,7 @@
                 Donate to: {{ $campaign->title }}
             </div>
             <div class="card-body">
-                <form action="{{ route('donations_process', $campaign->id) }}" method="post">
+                <form action="{{ route('donations_process', $campaign) }}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="idempotency_key" value="{{ Str::uuid() }}">
                     

@@ -8,7 +8,7 @@
                 Edit Campaign
             </div>
             <div class="card-body">
-                <form action="{{ route('campaigns_update', $campaign->id) }}" method="post">
+                <form action="{{ route('campaigns_update', $campaign) }}" method="post">
                     {{ csrf_field() }}
                     
                     @if($errors->any())
