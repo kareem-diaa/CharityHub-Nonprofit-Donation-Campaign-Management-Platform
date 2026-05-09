@@ -17,6 +17,12 @@ Route::get('/logout', [UsersController::class, 'doLogout'])->name('do_logout');
 Route::get('/auth/google', [UsersController::class, 'redirectToGoogle'])->name('login_with_google');
 Route::get('/auth/google/callback', [UsersController::class, 'handleGoogleCallback']);
 
+// Forgot Password
+Route::get('/forgot-password', [UsersController::class, 'forgotPassword'])->name('forgot_password');
+Route::post('/forgot-password', [UsersController::class, 'doForgotPassword'])->name('forgot_password_process');
+Route::get('/reset-password/{token}', [UsersController::class, 'resetPassword'])->name('reset_password');
+Route::post('/reset-password', [UsersController::class, 'doResetPassword'])->name('reset_password_process');
+
 // Campaigns
 use App\Http\Controllers\Web\CampaignsController;
 Route::get('/campaigns', [CampaignsController::class, 'index'])->name('campaigns_list');
@@ -28,18 +34,28 @@ Route::post('/campaigns/delete/{campaign}', [CampaignsController::class, 'destro
 
 // Reports
 use App\Http\Controllers\Web\ReportsController;
-Route::get('/campaigns/reports/impact', [ReportsController::class, 'impactReport'])->name('reports_impact');
+Route::get('/reports/impact', [ReportsController::class, 'impactReport'])->name('reports_impact');
+Route::get('/reports/donations', [ReportsController::class, 'allDonations'])->name('reports_donations');
+Route::get('/reports/volunteers', [ReportsController::class, 'allVolunteers'])->name('reports_volunteers');
+Route::post('/reports/volunteers/remove/{registration}', [ReportsController::class, 'removeRegistration'])->name('reports_volunteers_remove');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [UsersController::class, 'profile'])->name('profile');
+    Route::get('/users', [UsersController::class, 'index'])->name('users_index');
 
     // Donations
     Route::get('/donations/create/{campaign}', [\App\Http\Controllers\Web\DonationsController::class, 'create'])->name('donations_create');
     Route::post('/donations/process/{campaign}', [\App\Http\Controllers\Web\DonationsController::class, 'process'])->name('donations_process');
+    Route::get('/donations/success/{campaign}', [\App\Http\Controllers\Web\DonationsController::class, 'success'])->name('donations_success');
+    Route::get('/donations/cancel/{campaign}', [\App\Http\Controllers\Web\DonationsController::class, 'cancel'])->name('donations_cancel');
+    Route::get('/donations/certificate/{donation}', [\App\Http\Controllers\Web\CertificateController::class, 'download'])->name('donations_certificate');
 
     // Volunteers (Auth required to register or create tasks)
     Route::get('/volunteers/create', [\App\Http\Controllers\Web\VolunteerController::class, 'create'])->name('volunteers_create');
     Route::post('/volunteers/store', [\App\Http\Controllers\Web\VolunteerController::class, 'store'])->name('volunteers_store');
+    Route::get('/volunteers/edit/{task}', [\App\Http\Controllers\Web\VolunteerController::class, 'edit'])->name('volunteers_edit');
+    Route::post('/volunteers/update/{task}', [\App\Http\Controllers\Web\VolunteerController::class, 'update'])->name('volunteers_update');
+    Route::post('/volunteers/delete/{task}', [\App\Http\Controllers\Web\VolunteerController::class, 'destroy'])->name('volunteers_delete');
     Route::post('/volunteers/register/{task}', [\App\Http\Controllers\Web\VolunteerController::class, 'register'])->name('volunteers_register');
 });
 

@@ -46,4 +46,28 @@ class ReportsController extends Controller
             'campaignBreakdown'
         ));
     }
+
+    public function allDonations()
+    {
+        if(!auth()->user()->hasPermissionTo('manage_campaigns')) abort(401);
+
+        $donations = Donation::with(['user', 'campaign'])->latest()->get();
+        return view('reports.donations', compact('donations'));
+    }
+
+    public function allVolunteers()
+    {
+        if(!auth()->user()->hasPermissionTo('manage_volunteers')) abort(401);
+
+        $registrations = VolunteerRegistration::with(['user', 'task'])->latest()->get();
+        return view('reports.volunteers', compact('registrations'));
+    }
+
+    public function removeRegistration(VolunteerRegistration $registration)
+    {
+        if(!auth()->user()->hasPermissionTo('manage_volunteers')) abort(401);
+
+        $registration->delete();
+        return redirect()->back()->with('success', 'Volunteer removed from task successfully.');
+    }
 }

@@ -23,6 +23,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'google_id',
+        'google_token',
+        'google_refresh_token',
     ];
 
     /**
@@ -46,5 +49,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
+
+    public function volunteerRegistrations()
+    {
+        return $this->hasMany(VolunteerRegistration::class);
     }
 }

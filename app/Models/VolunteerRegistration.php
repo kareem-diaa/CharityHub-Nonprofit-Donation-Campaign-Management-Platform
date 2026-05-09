@@ -12,4 +12,9 @@ class VolunteerRegistration extends Model
     {
         return $this->belongsTo(VolunteerTask::class, 'volunteer_task_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

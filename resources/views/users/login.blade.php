@@ -19,6 +19,9 @@
                     <div class="form-group mb-3">
                         <label for="password" class="form-label">Password:</label>
                         <input type="password" class="form-control" placeholder="Enter your password" name="password" required>
+                        <div class="text-end mt-1">
+                            <a href="{{ route('forgot_password') }}" class="text-muted small">Forgot Password?</a>
+                        </div>
                     </div>
                     
                     <div class="form-group mb-3">

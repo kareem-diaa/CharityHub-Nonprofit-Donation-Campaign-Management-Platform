@@ -35,25 +35,17 @@
                         </select>
                     </div>
 
-                    <hr>
-                    <h5 style="color: var(--neon-green);">Secure Payment (Simulated)</h5>
-                    <div class="form-group mb-3">
-                        <label class="form-label">Card Number:</label>
-                        <input type="text" class="form-control" placeholder="**** **** **** ****" required>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 form-group mb-3">
-                            <label class="form-label">Expiry Date:</label>
-                            <input type="text" class="form-control" placeholder="MM/YY" required>
-                        </div>
-                        <div class="col-6 form-group mb-3">
-                            <label class="form-label">CVC:</label>
-                            <input type="text" class="form-control" placeholder="***" required>
-                        </div>
+                    <div class="alert alert-info small mt-2">
+                        <i class="fas fa-shield-alt"></i> You will be redirected to a <strong>Secure Stripe Payment</strong> page.
                     </div>
                     
                     <div class="form-group mb-3">
-                        <button type="submit" class="btn btn-primary w-100">Donate Securely</button>
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Proceed to Payment</button>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <p class="small text-muted mb-1">Testing Mode Active</p>
+                        <code class="bg-light p-1 border rounded">Test Card: 4242 4242 4242 4242</code>
                     </div>
                 </form>
             </div>

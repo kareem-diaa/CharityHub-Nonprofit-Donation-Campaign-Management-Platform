@@ -10,13 +10,32 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Fix for yellow autofill in browsers */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px #f8f1ff inset !important;
+            -webkit-text-fill-color: #4834d4 !important;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
 <body>
     @include('layouts.menu')
     <div class="container mt-4">
         @if(session('success'))
-            <div class="alert alert-success">
-                <strong>Success!</strong> {{ session('success') }}
+            <div class="alert alert-success d-flex justify-content-between align-items-center">
+                <div><strong>Success!</strong> {!! session('success') !!}</div>
+                @if(session('donation_id'))
+                    <a href="{{ route('donations_certificate', session('donation_id')) }}" class="btn btn-sm btn-light border">
+                        <i class="fas fa-file-pdf text-danger"></i> Download Certificate
+                    </a>
+                @endif
             </div>
         @endif
         @if(session('error'))

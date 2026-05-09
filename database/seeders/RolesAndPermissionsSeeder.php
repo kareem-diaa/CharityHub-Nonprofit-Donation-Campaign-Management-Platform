@@ -58,7 +58,8 @@ class RolesAndPermissionsSeeder extends Seeder
         $roleDonor = Role::firstOrCreate(['name' => 'Donor']);
         $roleDonor->givePermissionTo([
             'view_campaigns',
-            'make_donations'
+            'make_donations',
+            'register_volunteer'
         ]);
 
         $roleVolunteer = Role::firstOrCreate(['name' => 'Volunteer']);
