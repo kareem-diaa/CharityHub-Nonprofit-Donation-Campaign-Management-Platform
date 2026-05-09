@@ -4,6 +4,8 @@
 
 **A secure, full-featured non-profit donation and volunteer management platform**
 
+![alt text](image.png)
+
 *Built with Laravel 11 · Stripe · Filament PHP · FullCalendar.js · Google Maps*
 
 ![Laravel](https://img.shields.io/badge/Laravel-11-FF2D20?style=flat&logo=laravel&logoColor=white)
