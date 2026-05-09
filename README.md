@@ -1,76 +1,115 @@
-# CharityHub - Nonprofit Donation & Campaign Management Platform
-<img width="595" height="751" alt="image" src="https://github.com/user-attachments/assets/25da90a4-6f59-44aa-af13-b6dbaecbb208" />
-
-
-## 🚀 Overview
-CharityHub is a transparent online platform designed to manage fundraising campaigns, accept donations, coordinate volunteers, and publish impact reports to build donor trust.
+<div align="center">
+  <h1>🌍 CharityHub</h1>
+  <p>A modern, feature-rich, and secure non-profit donation and volunteer management platform built with Laravel 11.</p>
+</div>
 
 ---
 
-## ✅ What Has Been Completed (My Work)
-The core foundation and frontend UI have been successfully implemented:
+## 📖 Overview
 
-1. **Frontend UI (Premium Theme):**
-   - Designed a highly professional **Frosted Lilac Glassmorphism** theme using Custom CSS.
-   - Fully responsive layouts using Bootstrap 5 for grids.
-   - Dynamic, animated backgrounds and soft hover effects.
-2. **Volunteer System:**
-   - Volunteer registration and task tracking.
-   - Implemented a custom **Conflict Detection Algorithm** to prevent volunteers from registering for tasks overlapping in time.
-3. **Campaign Management (CRUD):**
-   - Full backend controllers to Create, Read, Update, and Delete campaigns.
-   - Dynamic progress bars calculating raised amounts vs. goals.
-   - SEO-friendly URL generation (Slugs).
-4. **Donations Engine Core:**
-   - Built the database structures and relations for donations.
-   - Implemented **Idempotency Keys** to securely prevent duplicate donation charges.
-5. **Impact Reports:**
-   - Created a dynamic impact report dashboard aggregating total donations, active campaigns, and volunteer hours.
-6. **Authentication & Roles (RBAC):**
-   - Implemented Spatie Laravel-permission.
-   - Secured routes using `@can` and Middleware for (Admin, Manager, Donor, Volunteer).
+CharityHub is a comprehensive web application designed to empower non-profit organizations to effortlessly manage fundraising campaigns, process secure donations, organize volunteer activities, and issue automated donor certificates. 
 
-## 🛠️ Technologies Used So Far
-- **Backend:** Laravel 11 (Manual coding & architecture)
-- **Database:** MySQL (using XAMPP)
-- **Frontend:** Blade Templating, Bootstrap 5 (Structure), Custom CSS (Aesthetics)
-- **Fonts:** Google Fonts (Outfit)
+The platform boasts a dedicated volunteer scheduling interface and a robust administrative backend panel for complete oversight.
 
----
+## ✨ Key Features
 
-## ⏳ Pending Tasks (For Next Team Members)
-Based on the Project Criteria, the following features are left to be implemented by the rest of the team:
+### 💰 Donations & Payments (Stripe)
+- **Flexible Contributions:** Support for both **One-time** and **Recurring (Monthly)** donations.
+- **Secure Processing:** Seamlessly integrated with **Stripe Checkout**.
+- **Automated Webhooks:** Listens to Stripe events for real-time synchronization of recurring subscription payments.
+- **Idempotency Protection:** Prevents accidental double-charging if a user refreshes the payment page.
 
-### 1. Payment Integration (Backend Team)
-- Integrate **Stripe Billing** or **PayMob** for live payment processing.
-- Handle both one-time and recurring (subscription) donations.
-- Implement an abstract Payment Interface for easy gateway swapping.
+### 📜 Automated Donor Certificates
+- **Dynamic PDF Generation:** Automatically generates beautifully formatted PDF certificates using `DOMPDF` upon successful donations.
+- **Automated Email Delivery:** Instantly emails the certificate to the donor using Laravel Queues.
+- **Secure Access (IDOR Prevention):** Strict authorization ensures donors can only download their own certificates.
+- **Public Verification:** Unique URLs allow third-party verification of certificate authenticity.
 
-### 2. PDF & Email Jobs (Backend Team)
-- Install and configure **DomPDF**.
-- Generate automated donor certificates containing a **QR Code**.
-- Setup Laravel Queued Jobs and Events (`DonationReceived` event) to send the certificate via email asynchronously.
+### 🗺️ Campaigns & Geolocation
+- **Campaign Management:** Full CRUD capabilities with secure file uploads for campaign banner images.
+- **SEO-Friendly Slugs:** Dynamic, human-readable URLs for campaign pages.
+- **Google Maps Integration:** Dynamically renders a Google Map showing the exact physical location of a campaign based on its latitude and longitude.
 
-### 3. Real-Time UI Updates (Frontend Team)
-- Integrate **Livewire** to make the campaign progress bars and donation feeds update in real-time without refreshing the page.
+### 🤝 Volunteer Management
+- **Interactive Scheduling:** Features an interactive **FullCalendar.js** interface for volunteers to browse upcoming tasks.
+- **Smart Registration:** Enforces task capacities, deadline checks, and prevents schedule conflicts (double-booking on the same day).
+- **Secure Hour Logging:** Dedicated UI allowing registered volunteers to accurately log their fractional hours worked, with strict backend validation preventing them from logging more hours than the task requires.
 
-### 4. Maps Integration (Frontend Team)
-- Integrate **Google Maps API** into the Impact Reports page to show beneficiary locations.
+### 🔐 Authentication & Authorization
+- **Google OAuth:** One-click registration and login via Google.
+- **Role-Based Access Control:** Powered by Spatie Laravel-Permission (Admin vs. Standard User).
+- **Secure Admin Panel:** An isolated, elegant administrative dashboard powered by **Filament PHP** restricted exclusively to users with the 'Admin' role.
 
-### 5. Final Security Features
-- Implement the manual "Forget Password" flow with token generation (Chapter 6 requirement).
+## 🛠️ Technology Stack
 
----
+- **Framework:** Laravel 11 (PHP 8.2+)
+- **Database:** MySQL
+- **Admin Panel:** Filament PHP v3
+- **Payment Gateway:** Stripe PHP SDK
+- **OAuth:** Laravel Socialite (Google)
+- **PDF Generation:** Barryvdh/Laravel-DomPDF
+- **Frontend Assets:** Bootstrap 5, FullCalendar.js, Google Maps JS API
+- **Testing:** PHPUnit (Feature Testing with Mockery)
 
-## 💻 How to Run Locally
-1. Clone the repository.
-2. Run `composer install`
-3. Copy `.env.example` to `.env` (ensure `DB_CONNECTION=mysql` and your database exists in phpMyAdmin).
-4. Run `php artisan key:generate`
-5. Run `php artisan migrate:fresh --seed`
-6. Run `php artisan serve`
+## 📋 Requirements
 
-### 🔑 Default Admin Account
-To test the admin features, use the following credentials:
-- **Email:** `admin@charityhub.local`
-- **Password:** `password123`
+- PHP >= 8.2 (with `intl` and `gd` extensions enabled)
+- Composer
+- MySQL >= 8.0
+- Node.js & NPM (for Vite assets)
+- Stripe Account (for API keys)
+- Google Cloud Console Account (for OAuth and Maps APIs)
+
+## 🚀 Installation & Setup
+
+**1. Clone the repository**
+```bash
+git clone https://github.com/your-username/charityhub.git
+cd charityhub
+```
+
+**2. Install PHP Dependencies**
+```bash
+composer install
+```
+
+**3. Configure the Environment**
+Copy the example environment file and generate your application key:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+Open the `.env` file and configure your database credentials, Stripe keys, Mailtrap/SMTP settings, and Google APIs. *(See the documented `.env.example` for detailed instructions).*
+
+**4. Link Storage**
+Create the symbolic link to allow public access to uploaded campaign images:
+```bash
+php artisan storage:link
+```
+
+**5. Run Migrations & Seeders**
+Migrate the database and seed it with the default roles (Admin/User):
+```bash
+php artisan migrate --seed
+```
+
+**6. Start the Application**
+Start the background queue worker (for emails) and the local development server:
+```bash
+php artisan queue:work
+php artisan serve
+```
+
+## 🧪 Testing
+CharityHub features a robust, automated feature testing suite that uses Mockery to safely intercept third-party API calls. 
+
+To run the test suite:
+```bash
+php artisan test
+```
+
+## 🛡️ Security Implementation
+- **Mass Assignment:** All Eloquent models are strictly guarded.
+- **Broken Access Control (IDOR):** Verified via PHPUnit that users cannot access or modify resources belonging to others (e.g., Certificates, Volunteer Hours).
+- **File Upload Security:** Enforces MIME type validation and strictly stores images on the isolated `public` disk.
+- **Route Isolation:** The `/admin` Filament panel is strictly segregated from the standard `web` middleware group to prevent route collision and unauthorized access.
