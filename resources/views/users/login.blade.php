@@ -30,7 +30,7 @@
                     
                     <div class="form-group mb-3 text-center">
                         <a href="{{ route('login_with_google') }}" class="btn btn-outline-dark w-100">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="20" class="me-2"> Login with Google
+                            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffreelogopng.com%2Fimages%2Fall_img%2F1657952440google-logo-png-transparent.png&f=1&nofb=1&ipt=f68fa6ce55c7d47acdf36b62b7cbd1255a08cb67de7ea95e3d168609dab49e59" width="20" class="me-2"> Login with Google
                         </a>
                     </div>
                 </form>

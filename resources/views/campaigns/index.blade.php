@@ -15,7 +15,8 @@
     @foreach($campaigns as $campaign)
         <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm" style="border-top: 4px solid var(--neon-green);">
-                <div class="card-body">
+                <img src="{{ $campaign->image ? asset('storage/' . $campaign->image) : asset('img/default-campaign.jpg') }}" class="card-img-top" alt="{{ $campaign->title }}" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                <div class="card-body pt-0">
                     <h4 class="card-title">{{ $campaign->title }}</h4>
                     <span class="badge bg-secondary mb-2">{{ ucfirst($campaign->status) }}</span>
                     <p class="card-text text-muted">{!! $campaign->description !!}</p>

@@ -8,7 +8,7 @@
                 Create New Campaign
             </div>
             <div class="card-body">
-                <form action="{{ route('campaigns_store') }}" method="post">
+                <form action="{{ route('campaigns_store') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     
                     @if($errors->any())
@@ -36,6 +36,11 @@
                         <textarea class="form-control" name="description" rows="4" required>{{ old('description') }}</textarea>
                     </div>
 
+                    <div class="form-group mb-3">
+                        <label class="form-label">Campaign Image:</label>
+                        <input type="file" class="form-control" name="image" accept="image/*">
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label class="form-label">Goal Amount ($):</label>
@@ -44,6 +49,17 @@
                         <div class="col-md-6 form-group mb-3">
                             <label class="form-label">Deadline:</label>
                             <input type="date" class="form-control" name="deadline" value="{{ old('deadline') }}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="form-label">Latitude (Optional):</label>
+                            <input type="number" step="any" class="form-control" name="latitude" value="{{ old('latitude') }}">
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="form-label">Longitude (Optional):</label>
+                            <input type="number" step="any" class="form-control" name="longitude" value="{{ old('longitude') }}">
                         </div>
                     </div>
                     

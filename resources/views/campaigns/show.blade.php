@@ -6,7 +6,24 @@
     <meta property="og:description" content="{{ Str::limit(strip_tags($campaign->description), 150) }}">
     <meta property="og:url" content="{{ route('campaigns_show', $campaign) }}">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="{{ asset('img/default-campaign.jpg') }}"> <!-- Placeholder if no image column -->
+    <meta property="og:image" content="{{ $campaign->image ? asset('storage/' . $campaign->image) : asset('img/default-campaign.jpg') }}">
+    <script>
+        function initMap() {
+            @if($campaign->latitude && $campaign->longitude)
+            var location = { lat: {{ $campaign->latitude }}, lng: {{ $campaign->longitude }} }; 
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: location
+            });
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                title: "{{ $campaign->title }}"
+            });
+            @endif
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.key') }}&callback=initMap"></script>
 @endpush
 
 @section('content')
@@ -18,6 +35,8 @@
                     <h2 class="card-title mb-0" style="color: var(--neon-green);">{{ $campaign->title }}</h2>
                     <span class="badge bg-secondary fs-6">{{ ucfirst($campaign->status) }}</span>
                 </div>
+                
+                <img src="{{ $campaign->image ? asset('storage/' . $campaign->image) : asset('img/default-campaign.jpg') }}" class="img-fluid rounded mb-4 w-100" alt="{{ $campaign->title }}" style="max-height: 400px; object-fit: cover;">
                 
                 <p class="text-muted mb-4"><i class="fas fa-calendar-alt"></i> Deadline: {{ \Carbon\Carbon::parse($campaign->deadline)->format('F j, Y') }}</p>
 
@@ -31,6 +50,13 @@
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
                     <a href="{{ route('donations_create', $campaign) }}" class="btn btn-success btn-lg px-5 me-md-2">Donate Now</a>
                 </div>
+
+                @if($campaign->latitude && $campaign->longitude)
+                <!-- Google Maps Container -->
+                <hr class="my-4">
+                <h5 class="mb-3">Campaign Location</h5>
+                <div id="map" style="height: 350px; width: 100%; border-radius: 8px; border: 1px solid #ddd;"></div>
+                @endif
 
                 <!-- Social Share -->
                 <hr class="my-4">

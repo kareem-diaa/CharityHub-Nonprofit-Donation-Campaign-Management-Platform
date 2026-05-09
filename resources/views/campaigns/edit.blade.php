@@ -8,7 +8,7 @@
                 Edit Campaign
             </div>
             <div class="card-body">
-                <form action="{{ route('campaigns_update', $campaign) }}" method="post">
+                <form action="{{ route('campaigns_update', $campaign) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     
                     @if($errors->any())
@@ -32,6 +32,17 @@
                         <textarea class="form-control" name="description" rows="4" required>{{ $campaign->description }}</textarea>
                     </div>
 
+                    <div class="form-group mb-3">
+                        <label class="form-label">Campaign Image:</label>
+                        @if($campaign->image)
+                            <div class="mb-2">
+                                <img src="{{ asset('storage/' . $campaign->image) }}" alt="Current Image" class="img-thumbnail" style="max-height: 150px;">
+                            </div>
+                        @endif
+                        <input type="file" class="form-control" name="image" accept="image/*">
+                        <small class="text-muted">Leave blank to keep the current image.</small>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-4 form-group mb-3">
                             <label class="form-label">Goal Amount ($):</label>
@@ -50,6 +61,17 @@
                         </div>
                     </div>
                     
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="form-label">Latitude (Optional):</label>
+                            <input type="number" step="any" class="form-control" name="latitude" value="{{ old('latitude', $campaign->latitude) }}">
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="form-label">Longitude (Optional):</label>
+                            <input type="number" step="any" class="form-control" name="longitude" value="{{ old('longitude', $campaign->longitude) }}">
+                        </div>
+                    </div>
+
                     <div class="form-group mb-3">
                         <button type="submit" class="btn btn-warning w-100">Update Campaign</button>
                     </div>

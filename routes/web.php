@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/volunteers/update/{task}', [\App\Http\Controllers\Web\VolunteerController::class, 'update'])->name('volunteers_update');
     Route::post('/volunteers/delete/{task}', [\App\Http\Controllers\Web\VolunteerController::class, 'destroy'])->name('volunteers_delete');
     Route::post('/volunteers/register/{task}', [\App\Http\Controllers\Web\VolunteerController::class, 'register'])->name('volunteers_register');
+    Route::post('/volunteers/log-hours/{registration}', [\App\Http\Controllers\Web\VolunteerController::class, 'logHours'])->name('volunteers_log_hours');
 });
 
 // Volunteer List (Public)

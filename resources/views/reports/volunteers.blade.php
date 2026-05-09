@@ -26,7 +26,7 @@
                     <td class="ps-4">{{ $reg->user->name }}</td>
                     <td>{{ $reg->task->title }}</td>
                     <td>{{ \Carbon\Carbon::parse($reg->task->task_date)->format('M d, Y') }}</td>
-                    <td>{{ $reg->task->hours_required }}h</td>
+                    <td>{{ $reg->hours_logged }}h / {{ $reg->task->hours_required }}h</td>
                     <td>{{ $reg->created_at->format('M d, Y') }}</td>
                     <td class="text-center">
                         <form action="{{ route('reports_volunteers_remove', $reg->id) }}" method="POST" class="d-inline">

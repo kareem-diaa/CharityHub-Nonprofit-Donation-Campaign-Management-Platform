@@ -127,4 +127,20 @@ class VolunteerController extends Controller
 
         return redirect()->route('volunteers_list')->with('success', 'You have successfully registered for the task!');
     }
+
+    public function logHours(Request $request, VolunteerRegistration $registration)
+    {
+        if ($registration->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $request->validate([
+            'hours_logged' => 'required|numeric|min:0|max:' . $registration->task->hours_required,
+        ]);
+
+        $registration->hours_logged = $request->hours_logged;
+        $registration->save();
+
+        return redirect()->back()->with('success', 'Hours successfully logged.');
+    }
 }

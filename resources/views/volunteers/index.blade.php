@@ -2,6 +2,38 @@
 @section('title', 'Volunteer Opportunities')
 @section('content')
 
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,listWeek'
+            },
+            events: [
+                @foreach($tasks as $task)
+                {
+                    title: '{{ addslashes($task->title) }}',
+                    start: '{{ $task->task_date }}',
+                    end: '{{ $task->end_date ? \Carbon\Carbon::parse($task->end_date)->addDay()->format("Y-m-d") : "" }}',
+                    url: '#task-{{ $task->id }}'
+                },
+                @endforeach
+            ]
+        });
+        calendar.render();
+    });
+</script>
+@endpush
+
+<div class="mb-5">
+    <div id="calendar" class="card shadow-sm p-3"></div>
+</div>
+
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 style="color: var(--neon-green);">Volunteer Opportunities</h2>
     @auth
@@ -13,7 +45,7 @@
 
 <div class="row">
     @foreach($tasks as $task)
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4" id="task-{{ $task->id }}">
             <div class="card h-100 shadow-sm" style="border-left: 5px solid var(--neon-green);">
                 <div class="card-body">
                     <h4 class="card-title">{{ $task->title }}</h4>
@@ -42,7 +74,25 @@
                     </div>
                     
                     @auth
-                        @if(!$isFinished && !$isFull)
+                        @php
+                            $userRegistration = auth()->user()->volunteerRegistrations->where('volunteer_task_id', $task->id)->first();
+                        @endphp
+                        
+                        @if($userRegistration)
+                            <div class="card mt-3 border-success">
+                                <div class="card-body p-3">
+                                    <h6 class="text-success mb-2"><i class="fas fa-clock"></i> Log Your Hours</h6>
+                                    <form action="{{ route('volunteers_log_hours', $userRegistration->id) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        <div class="input-group">
+                                            <input type="number" step="0.5" min="0" max="{{ $task->hours_required }}" class="form-control" name="hours_logged" value="{{ $userRegistration->hours_logged }}" required>
+                                            <span class="input-group-text">/ {{ $task->hours_required }} hrs</span>
+                                            <button type="submit" class="btn btn-success">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        @elseif(!$isFinished && !$isFull)
                             <form action="{{ route('volunteers_register', $task->id) }}" method="POST" class="mt-3">
                                 {{ csrf_field() }}
                                 <button type="submit" class="btn btn-outline-primary w-100">Register Now</button>

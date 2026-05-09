@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Campaign;
+use Illuminate\Support\Facades\Storage;
 
 class CampaignsController extends Controller
 {
@@ -33,7 +34,10 @@ class CampaignsController extends Controller
             'slug' => 'required|string|max:255|unique:campaigns',
             'description' => 'required|string',
             'goal_amount' => 'required|numeric|min:0',
-            'deadline' => 'required|date'
+            'deadline' => 'required|date',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $campaign = new Campaign();
@@ -42,6 +46,13 @@ class CampaignsController extends Controller
         $campaign->description = $request->description;
         $campaign->goal_amount = $request->goal_amount;
         $campaign->deadline = $request->deadline;
+        $campaign->latitude = $request->latitude;
+        $campaign->longitude = $request->longitude;
+
+        if ($request->hasFile('image')) {
+            $campaign->image = $request->file('image')->store('campaigns', 'public');
+        }
+
         $campaign->save();
 
         return redirect()->route('campaigns_list')->with('success', 'Campaign created successfully.');
@@ -63,7 +74,10 @@ class CampaignsController extends Controller
             'description' => 'required|string',
             'goal_amount' => 'required|numeric|min:0',
             'deadline' => 'required|date',
-            'status' => 'required|string'
+            'status' => 'required|string',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $campaign->title = $request->title;
@@ -71,6 +85,17 @@ class CampaignsController extends Controller
         $campaign->goal_amount = $request->goal_amount;
         $campaign->deadline = $request->deadline;
         $campaign->status = $request->status;
+        $campaign->latitude = $request->latitude;
+        $campaign->longitude = $request->longitude;
+
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($campaign->image && Storage::disk('public')->exists($campaign->image)) {
+                Storage::disk('public')->delete($campaign->image);
+            }
+            $campaign->image = $request->file('image')->store('campaigns', 'public');
+        }
+
         $campaign->save();
 
         return redirect()->route('campaigns_list')->with('success', 'Campaign updated successfully.');
