@@ -15,30 +15,26 @@
     @foreach($campaigns as $campaign)
         <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm" style="border-top: 4px solid var(--neon-green);">
-                <div class="card-body">
+                <img src="{{ $campaign->image ? asset('storage/' . $campaign->image) : asset('img/default-campaign.jpg') }}" class="card-img-top" alt="{{ $campaign->title }}" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                <div class="card-body pt-0">
                     <h4 class="card-title">{{ $campaign->title }}</h4>
                     <span class="badge bg-secondary mb-2">{{ ucfirst($campaign->status) }}</span>
                     <p class="card-text text-muted">{!! $campaign->description !!}</p>
                     
-                    <div class="mb-3">
-                        <small class="text-muted">Raised: ${{ number_format($campaign->raised_amount, 2) }} / ${{ number_format($campaign->goal_amount, 2) }}</small>
-                        <div class="progress mt-1" style="height: 10px;">
-                            @php
-                                $percent = $campaign->goal_amount > 0 ? ($campaign->raised_amount / $campaign->goal_amount) * 100 : 0;
-                                $percent = $percent > 100 ? 100 : $percent;
-                            @endphp
-                            <div class="progress-bar progress-bar-custom" role="progressbar" style="width: {{ $percent }}%;" aria-valuenow="{{ $percent }}" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
+                    <!-- Livewire Progress Bar -->
+                    <livewire:campaign-progress-bar :campaign="$campaign" />
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <a href="{{ route('donations_create', $campaign->id) }}" class="btn btn-outline-success">Donate</a>
+                        <div>
+                            <a href="{{ route('campaigns_show', $campaign) }}" class="btn btn-outline-primary">View</a>
+                            <a href="{{ route('donations_create', $campaign) }}" class="btn btn-outline-success">Donate</a>
+                        </div>
                         
                         @auth
                             @can('manage_campaigns')
                             <div>
-                                <a href="{{ route('campaigns_edit', $campaign->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('campaigns_delete', $campaign->id) }}" method="POST" class="d-inline">
+                                <a href="{{ route('campaigns_edit', $campaign) }}" class="btn btn-sm btn-warning">Edit</a>
+                                <form action="{{ route('campaigns_delete', $campaign) }}" method="POST" class="d-inline">
                                     {{ csrf_field() }}
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
