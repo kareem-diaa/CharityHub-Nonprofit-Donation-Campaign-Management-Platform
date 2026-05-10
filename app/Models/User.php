@@ -67,4 +67,10 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasRole('Admin');
     }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $resetLink = route('reset_password', ['token' => $token]) . '?email=' . urlencode($this->email);
+        \Illuminate\Support\Facades\Mail::to($this->email)->send(new \App\Mail\ResetPasswordMail($resetLink));
+    }
 }
