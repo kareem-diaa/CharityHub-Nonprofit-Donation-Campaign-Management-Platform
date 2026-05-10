@@ -14,7 +14,6 @@
 ![Stripe](https://img.shields.io/badge/Stripe-Integrated-635BFF?style=flat&logo=stripe&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
-<br>
 
 > Developed as a course project for the **Web Development & Security** course  
 > ElSewedy University of Technology (SUT) — Networks & Cybersecurity Department
