@@ -4,7 +4,7 @@
 
 **A secure, full-featured non-profit donation and volunteer management platform**
 
-![alt text](image.png)
+![ChaitiyHub Landing Page](image.png)
 
 *Built with Laravel 11 · Stripe · Filament PHP · FullCalendar.js · Google Maps*
 
