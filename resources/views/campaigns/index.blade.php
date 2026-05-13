@@ -24,15 +24,15 @@
                     <!-- Livewire Progress Bar -->
                     <livewire:campaign-progress-bar :campaign="$campaign" />
 
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
+                    <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-3">
+                        <div class="d-flex gap-2">
                             <a href="{{ route('campaigns_show', $campaign) }}" class="btn btn-outline-primary">View</a>
                             <a href="{{ route('donations_create', $campaign) }}" class="btn btn-outline-success">Donate</a>
                         </div>
                         
                         @auth
                             @can('manage_campaigns')
-                            <div>
+                            <div class="d-flex gap-2">
                                 <a href="{{ route('campaigns_edit', $campaign) }}" class="btn btn-sm btn-warning">Edit</a>
                                 <form action="{{ route('campaigns_delete', $campaign) }}" method="POST" class="d-inline">
                                     {{ csrf_field() }}
